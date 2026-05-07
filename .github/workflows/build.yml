@@ -36,13 +36,6 @@ jobs:
           repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-11
           repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
       
-      - name: Sync Minimal Manifest
-        run: |
-          mkdir ~/twrp
-          cd ~/twrp
-          repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-11
-          repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
-
       - name: Clone Device Tree
         run: |
           cd ~/twrp
