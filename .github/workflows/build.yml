@@ -20,6 +20,22 @@ jobs:
           sudo apt update
           sudo apt install -y gperf gcc-multilib g++-multilib lib32ncurses-dev x11proto-core-dev libx11-dev lib32z1-dev libgl1-mesa-dev libxml2-utils xsltproc unzip bc zip
 
+      - name: Install Repo Tool
+        run: |
+          mkdir -p ~/bin
+          curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+          chmod a+x ~/bin/repo
+          echo "$HOME/bin" >> $GITHUB_PATH
+
+      - name: Sync Minimal Manifest
+        run: |
+          mkdir ~/twrp
+          cd ~/twrp
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
+          repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-11
+          repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
+      
       - name: Sync Minimal Manifest
         run: |
           mkdir ~/twrp
